@@ -370,4 +370,7 @@ sessionInfo()
 ```
 
 # References
+Dong D, Tian Y, Zheng SC, Teschendorff AE, ebGSEA: An Improved Gene Set Enrichment Analysis Method for Epigenome-Wide-Association Studies. Bioinformatics. 2019 Sep 15;35(18):3514-3516. doi: 10.1093/bioinformatics/btz073.
+
+
 
