@@ -1,0 +1,98 @@
+* using log directory ‘/media/andrew/996efb72-ed29-4e68-9b95-8afaea40f351/ebGSEA/ebGSEA.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘ebGSEA/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘ebGSEA’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘ebGSEA’ can be installed ... OK
+* checking installed package size ... NOTE
+  installed size is 75.2Mb
+  sub-directories of 1Mb or more:
+    data  40.5Mb
+    doc   34.6Mb
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by ‘R CMD build’.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+gseaFTfn: warning in fisher.test(tmp.m, alt = "gr"): partial argument
+  match of 'alt' to 'alternative'
+doGT: no visible binding for global variable ‘mapEIDto450k.lv’
+doGT: no visible binding for global variable ‘mapEIDto850k.lv’
+selEIDfromSelCpG: no visible binding for global variable
+  ‘map450ktoEID.lv’
+selEIDfromSelCpG: no visible binding for global variable
+  ‘mapEIDto450k.lv’
+selEIDfromSelCpG: no visible binding for global variable
+  ‘map850ktoEID.lv’
+selEIDfromSelCpG: no visible binding for global variable
+  ‘mapEIDto850k.lv’
+Undefined global functions or variables:
+  map450ktoEID.lv map850ktoEID.lv mapEIDto450k.lv mapEIDto850k.lv
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘allCpG.v’ ‘dataSMK.m’ ‘listEZ.lv’ ‘listG.lv’ ‘listclassALL.v’
+  ‘map450ktoEID.lv’ ‘map850ktoEID.lv’ ‘mapEIDto450k.lv’
+  ‘mapEIDto850k.lv’ ‘phenoSMK.v’ ‘sampleCpG.v’
+Undocumented data sets:
+  ‘listEZ.lv’ ‘listG.lv’ ‘listclassALL.v’ ‘allCpG.v’ ‘sampleCpG.v’
+  ‘map450ktoEID.lv’ ‘mapEIDto450k.lv’ ‘map850ktoEID.lv’
+  ‘mapEIDto850k.lv’ ‘dataSMK.m’ ‘phenoSMK.v’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... WARNING
+Files in the 'vignettes' directory newer than all files in 'inst/doc':
+  ‘ebGSEA.Rmd’, ‘ebGSEA.html’, ‘ebGSEA.md’, ‘ebgseaDATA.rda’,
+    ‘figure/unnamed-chunk-12-1.png’, ‘figure/unnamed-chunk-6-1.png’
+The following directory looks like a leftover from 'knitr':
+  ‘figure’
+Please remove from your package.
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... NONE
+  ‘ebGSEA.Rmd’using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+* checking PDF version of manual without hyperrefs or index ... OK
+* DONE
+Status: 3 WARNINGs, 3 NOTEs

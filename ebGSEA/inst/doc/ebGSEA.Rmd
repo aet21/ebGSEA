@@ -1,0 +1,175 @@
+---
+title: "Introduction to ebGSEA"
+author:
+- name: "Andrew E. Teschendorff"
+  affiliation: 
+  - UCL Cancer Institute, University College London
+  - CAS Key Lab of Computational Biology, PICB, SINH
+- name: "Tianyu Zhu"
+  affiliation:
+  - CAS Key Lab of Computational Biology, PICB, SINH
+date: "`r Sys.Date()`"
+package: ebGSEA
+output:
+  BiocStyle::html_document:
+    theme: readable
+bibliography: ebGSEA.bib
+vignette: >
+  %\VignetteIndexEntry{Empirical Bayes Gene Set Enrichment Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r vignette-options, echo=FALSE, warning=FALSE}
+require(BiocStyle)
+```
+
+# Introduction
+
+Gene Set Enrichment Analysis is one of the most common tasks in the analysis of omic data, and is critical for biological interpretation. In the context of Epigenome Wide Association Studies, which typically rank individual cytosines according to the level of differential methylation, enrichment analysis of biological pathways is challenging due to differences in CpG/probe density between genes. Here we propose an empirical Bayes Gene Set Enrichment Analysis (ebGSEA) algorithm, which does not rank CpGs but genes according to the overall level of differential methylation of its CpGs/probes, allowing unbiased and sensitive detection of enriched pathways. ebGSEA serves as a useful GSEA tool for EWAS that use Illumina HM450k and EPIC beadarrays. For details please refer to our publications listed at the end of this tutorial[@dong2019ebgsea].
+
+# Tutorial Example
+
+## Global test to identify genes showing overall differential methylation of CpGs
+
+We used a HM450k buccal swab dataset[@teschendorff2015correlation], which contains 104 buccal swab samples with smoking-pack-years as phenotype. The beta value matrix has been processed, with samples by column and probes by row.
+
+```{r}
+load("/mnt/local-disk/data/zhutianyu/ebGSEA/trainBUC.rda")
+dim(data.m)
+```
+
+Firstly, we do global test[@goeman2004a] to rank genes according to overall differential methylation level of mapped CpGs. Here are the inputs for doGT function:
+
+* pheno.v: A vector of phenotype information, must be matched to columns of the input beta matrix.
+* data.m: A matrix of beta values with probes by row and samples by column. Missing values shoud be excluded.
+* model: The regression model for global test. Default is “linear”.
+* array: Array type for the input data. “450k” for Illumina HumanMethylation450 data and “850k” for Illumina MethylationEPIC data.
+* ncores: Number of cores used for parallel running. (default = 4)
+
+Because the function will take a few miniutes to run, we have stored the output of `doGT` in the pacakge. You can get the result by `data("sgtm")`
+```{r}
+library(ebGSEA)
+## sgt.m <-doGT(pheno.v,data.m,array="450k",ncores=20)
+data("sgtm")
+```
+
+We can get the following matrix ordered by statistic for all genes tested:
+```{r}
+dim(sgt.m)
+head(sgt.m)
+```
+
+## Pathway enrichment analysis with Wilcox Rank Sum Test and Known-Population Meian Test
+
+Then we can apply `doGSEAwt` function to do pathway enrichment analysis with Wilcox test and Knwon-Population Median Test, here are the input parameters:
+
+* rankEID.m: The resulted matrix from `doGT` function, with genes by row and ranked by statistics from global test. Rownames of the matrix should be gene EntrezID.
+* ptw.ls: Lists of Gene EntrezID in each pathway of interest. You can get the 8567 biological terms from Molecular Signatures Database[@subramanian2005gene] by `data("MSigDB-28Feb14-data")`.
+* ncores: Number of cores used for parallel running. (default = 4)
+* minN: For each pathway, the minium number of genes(i.e. available in the ranked gene list) to conduct GSEA. If less than this value, the p value of this pathway would be set 1. (default = 5)
+* adjPVth: Adjusted p value threshold to infer a pathway to be significantly enriched or not. P value was derived from Wilcoxon rank sum test and adjusted with BH method. (default = 0.05)
+
+```{r warning=FALSE}
+data("MSigDB-28Feb14-data")
+topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv, ncores = 10, minN = 5,adjPVth = 0.05)
+```
+
+The result is a list of three objects: 
+
+* Rank(P): A matrix showing enriched pathways ranked by adjusted wilcox test p values.
+* Rank(AUC): A matrix showing enriched pathways ranked by AUC.
+* Genestat: Lists of gene symbols in each enriched pathway. Each object contains the statistic and p-value from global test of each gene.
+
+There are 2240 enriched pathway identified for this sample data.
+```{r}
+summary(topGSEA.lm)
+```
+
+In the first of two objects we can view the following information for each enriched pathway rank by adjusted wilcox test p value or AUC:
+
+* nREP: Number of genes mapped in this pathway
+* AUC: Area under curve from wilcox test
+* P(WT): P value from Wilcox Test
+* P(KPMT): P value from Known Population Median Test)
+* adjP: Adjusted P value for each pathway, using BH method
+
+```{r}
+head(topGSEA.lm$`Rank(P)`)
+```
+From the results we can see the biological term nasopharynx carcinoma is highly enriched. Nasopharynx carcinoma is a cancer that is smoking related and the nasopharynx is exposed to smoke carcinogens. 
+
+The third list Genestat consists of the statistic and p-value from global test, of each gene in a specific enriched pathway. The genes in the first pathway:
+```{r}
+head(topGSEA.lm$Genestat[[1]])
+```
+
+We can plot the AUC and adjP for each enriched pathway:
+```{r}
+plot(x = topGSEA.lm$`Rank(P)`[,2], y = -log10(topGSEA.lm$`Rank(P)`[,5]), xlab ='AUC', ylab = '-log10(adjP)', main = 'AUC and adjP for each enriched pathway', pch = 21, bg = 'red')
+```
+
+## Pathway enrichment analysis with Fisher's Exact Test
+
+Additionally, ebGSEA allows users to do GSEA on a group of specified CpGs/Genes with Fisher's Exact Test, without the need of ranking genes.
+
+If your input is a group of CpG, you may use `selEIDfromSelCpG` function first to derive a group of significant genes. Here are the input parameters:
+
+* selCpG.v: A vector of user selected CpGs.
+* allCpG.v: A vector of all CpGs the user select the CpGs from.
+* pvth: P-value threshold to infer the number of selected CpGs mapped to a gene is significant or not in a binomial test. (default = 0.3/length(selCpG.v))
+* array: Array type for the input CpGs. "450k" for Illumina HumanMethylation450 data and "850k" for Illumina MethylationEPIC data.
+
+You can use the sample CpGs in the package derived from the same buccal swab dataset by `data("sampleCpG")`. This group of 40626 CpGs showed differential methylation pattern associated with smoking pack-years.
+
+```{r}
+data("SampleCpG")
+sigEID.ls <- selEIDfromSelCpG(selCpG.v = sampleCpG.v, allCpG.v = allCpG.v, array = "450k")
+```
+
+The group of CpGs are significantly mapped to 255 genes. 
+```{r}
+summary(sigEID.ls)
+```
+
+Then you can apply `doGSEAft` function to do pathway enrichment analysis with Fisher's Exact Test, here are the input parameters:
+
+* selEID.v: A vector of selected Entrez Gene ID.
+* ptw.ls: Lists of Gene EntrezID in each pathway of interest. You can get the 8567 biological terms from Molecular Signatures Database by `data("MSigDB-28Feb14-data")`.
+* allEID.v: A vector of the universal set of Entrez Gene ID which you select genes from.
+* ncores: Number of cores used for parallel running. (default = 4)
+* minN: For each pathway, the minium number of genes(i.e. available in the ranked gene list) to conduct GSEA. If less than this value, the p value of this pathway would be set 1. (default = 5)
+* adjPVth: Adjusted p value threshold to infer a pathway to be significantly enriched or not. P value was derived from Wilcoxon rank sum test and adjusted with BH method. (default = 0.05)
+
+```{r message=FALSE}
+topGSEAft.lm <- doGSEAft(selEID.v = sigEID.ls$selEID, ptw.ls = listEZ.lv, allEID.v = names(mapEIDto450k.lv), ncores = 1, adjPVth = 0.05)
+```
+The output of `topGSEAft.lm` consists of the following items:
+
+* Rank(P): A matrix showing enriched pathways ranked by adjusted Fisher's Exact Test p values. "nREP" is the number of genes in the pathway, "nOVL" is the number of selected genes in the pathway, "OR" is the odds ratio of Fisher's Exact Test, "P" is the p value of Fisher's Exact Test, "adjP" is the adjusted p value of Fisher's Exact Test (method='BH'), "Genes" is all the selected genes in the pathway.
+* Rank(OR): A matrix showing enriched pathways ranked by odds ratio. The columns are samely defined as in Rank(P).
+
+There are 79 enriched pathway identified by fisher's exact test, each with 6 features:
+```{r}
+summary(topGSEAft.lm)
+```
+
+```{r}
+head(topGSEAft.lm$`Rank(P)`)
+```
+We can see that the lung cancer biological term is on the top of the list, which is known to be strongly related with smoking.
+
+Then we can plot the odds ratio and adjPval for each enriched pathway.
+```{r}
+plot(x = log2(as.numeric(topGSEAft.lm$`Rank(P)`[,3])), y = -log10(as.numeric(topGSEAft.lm$`Rank(P)`[,5])), xlab ='log2(OR)', ylab = '-log10(adjP)', main = 'OR and adjP for each enriched pathway', pch = 21, bg = 'red')
+```
+
+
+# Session information
+
+```{r sessionInfo, echo=T}
+sessionInfo()
+```
+
+# References
+

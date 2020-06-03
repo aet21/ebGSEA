@@ -1,0 +1,131 @@
+pkgname <- "ebGSEA"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+library('ebGSEA')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("convertIDs")
+### * convertIDs
+
+flush(stderr()); flush(stdout())
+
+### Name: convertIDs
+### Title: Convert between different gene IDs
+### Aliases: convertIDs
+
+### ** Examples
+
+#data("sgtm")
+#rankEID.v <- rownames(sgt.m)
+#sym.v <- convertIDs(rankEID.v, 'ENTREZID', 'SYMBOL', org.Hs.eg.db, ifMultiple="useFirst")
+
+
+
+
+cleanEx()
+nameEx("doGSEAft")
+### * doGSEAft
+
+flush(stderr()); flush(stdout())
+
+### Name: doGSEAft
+### Title: GSEA with Fisher's Exact Test
+### Aliases: doGSEAft
+
+### ** Examples
+
+# topGSEAft.lm <- doGSEAft(selEID.v = sigEID.ls$selEID, ptw.ls = listEZ.lv, allEID.v = names(mapEIDto450k.lv), ncores = 1, adjPVth = 0.05)
+
+# Details can be found in tutorial
+
+
+
+
+cleanEx()
+nameEx("doGSEAwt")
+### * doGSEAwt
+
+flush(stderr()); flush(stdout())
+
+### Name: doGSEAwt
+### Title: GSEA with Wilcoxon Rank Sum Test and the Known-Population Median
+###   Test
+### Aliases: doGSEAwt
+
+### ** Examples
+
+# data("MSigDB-28Feb14-data")
+# data("sgtm")
+# topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv, ncores = 10, minN = 5, adjPVth = 0.05)
+
+
+
+
+cleanEx()
+nameEx("doGT")
+### * doGT
+
+flush(stderr()); flush(stdout())
+
+### Name: doGT
+### Title: Empirical Bayes Global Test
+### Aliases: doGT
+
+### ** Examples
+
+# sgt.m <- doGT(pheno.v, data.m, array = c("450k"), ncores = 10)
+# topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv, ncores = 10, minN = 5, adjPVth = 0.05)
+
+
+
+
+
+cleanEx()
+nameEx("ebGSEA-package")
+### * ebGSEA-package
+
+flush(stderr()); flush(stdout())
+
+### Name: ebGSEA-package
+### Title: Empirical Bayes Gene Set Enrichment Analysis
+### Aliases: ebGSEA-package
+
+### ** Examples
+
+### see example in tutorial
+
+
+
+
+cleanEx()
+nameEx("selEIDfromSelCpG")
+### * selEIDfromSelCpG
+
+flush(stderr()); flush(stdout())
+
+### Name: selEIDfromSelCpG
+### Title: Select significant genes from a selected set of CpGs
+### Aliases: selEIDfromSelCpG
+
+### ** Examples
+
+# data("SampleCpG")
+# sigEID.ls <- selEIDfromSelCpG(selCpG.v = sampleCpG.v, allCpG.v = allCpG.v, array = "450k")
+
+
+
+
+### * <FOOTER>
+###
+cleanEx()
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')

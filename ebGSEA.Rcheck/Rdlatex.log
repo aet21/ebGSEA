@@ -1,0 +1,178 @@
+Hmm ... looks like a package
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 5 language(s) loaded.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+No file Rd2.aux.
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+No file Rd2.toc.
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [1{/var/lib/texmf/fonts
+/map/pdftex/updmap/pdftex.map}]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [2]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pcr.fd)
+Overfull \hbox (90.78033pt too wide) in paragraph at lines 119--119
+ []\T1/pcr/m/n/9 #sym.v <- convertIDs(rankEID.v, \TS1/pcr/m/n/9 '\T1/pcr/m/n/9 
+ENTREZID\TS1/pcr/m/n/9 '\T1/pcr/m/n/9 , \TS1/pcr/m/n/9 '\T1/pcr/m/n/9 SYMBOL\TS
+1/pcr/m/n/9 '\T1/pcr/m/n/9 , org.Hs.eg.db, ifMultiple="useFirst")[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (48.78088pt too wide) in paragraph at lines 132--132
+ []\T1/pcr/m/n/10 doGSEAft(selEID.v, ptw.ls, allEID.v, ncores = 4, minN = 5, ad
+jPVth = 0.05)[] 
+[3]
+Overfull \hbox (349.98004pt too wide) in paragraph at lines 184--184
+ []\T1/pcr/m/n/9 # topGSEAft.lm <- doGSEAft(selEID.v = sigEID.ls$selEID, ptw.ls
+ = listEZ.lv, allEID.v = names(mapEIDto450k.lv), ncores = 1, adjPVth = 0.05)[] 
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4] [5]
+Overfull \hbox (155.58026pt too wide) in paragraph at lines 252--252
+ []\T1/pcr/m/n/9 # topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv
+, ncores = 10, minN = 5, adjPVth = 0.05)[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (90.78088pt too wide) in paragraph at lines 265--265
+ []\T1/pcr/m/n/10 doGT(pheno.v, data.m, model = c("linear"), array = c("450k", 
+"850k"), ncores = 4)[] 
+[6]
+Overfull \hbox (155.58026pt too wide) in paragraph at lines 306--306
+ []\T1/pcr/m/n/9 # topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv
+, ncores = 10, minN = 5, adjPVth = 0.05)[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (150.78088pt too wide) in paragraph at lines 505--505
+ []\T1/pcr/m/n/10 selEIDfromSelCpG(selCpG.v, allCpG.v, pvth = 0.3/length(selCpG
+.v), array = c("450k","850k"))[] 
+[10]
+Overfull \hbox (101.58032pt too wide) in paragraph at lines 550--550
+ []\T1/pcr/m/n/9 # sigEID.ls <- selEIDfromSelCpG(selCpG.v = sampleCpG.v, allCpG
+.v = allCpG.v, array = "450k")[] 
+[11] (./Rd2.aux) )
+(see the transcript file for additional information){/usr/share/texlive/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/urw/
+courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
+8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (11 pages, 97461 bytes).
+Transcript written on Rd2.log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 5 language(s) loaded.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu))) (./Rd2.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc [1{/var/li
+b/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [2]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pcr.fd)
+Overfull \hbox (90.78033pt too wide) in paragraph at lines 119--119
+ []\T1/pcr/m/n/9 #sym.v <- convertIDs(rankEID.v, \TS1/pcr/m/n/9 '\T1/pcr/m/n/9 
+ENTREZID\TS1/pcr/m/n/9 '\T1/pcr/m/n/9 , \TS1/pcr/m/n/9 '\T1/pcr/m/n/9 SYMBOL\TS
+1/pcr/m/n/9 '\T1/pcr/m/n/9 , org.Hs.eg.db, ifMultiple="useFirst")[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
+Overfull \hbox (48.78088pt too wide) in paragraph at lines 132--132
+ []\T1/pcr/m/n/10 doGSEAft(selEID.v, ptw.ls, allEID.v, ncores = 4, minN = 5, ad
+jPVth = 0.05)[] 
+[4]
+Overfull \hbox (349.98004pt too wide) in paragraph at lines 184--184
+ []\T1/pcr/m/n/9 # topGSEAft.lm <- doGSEAft(selEID.v = sigEID.ls$selEID, ptw.ls
+ = listEZ.lv, allEID.v = names(mapEIDto450k.lv), ncores = 1, adjPVth = 0.05)[] 
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5]
+Overfull \hbox (155.58026pt too wide) in paragraph at lines 252--252
+ []\T1/pcr/m/n/9 # topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv
+, ncores = 10, minN = 5, adjPVth = 0.05)[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (90.78088pt too wide) in paragraph at lines 265--265
+ []\T1/pcr/m/n/10 doGT(pheno.v, data.m, model = c("linear"), array = c("450k", 
+"850k"), ncores = 4)[] 
+[6]
+Overfull \hbox (155.58026pt too wide) in paragraph at lines 306--306
+ []\T1/pcr/m/n/9 # topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv
+, ncores = 10, minN = 5, adjPVth = 0.05)[] 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (150.78088pt too wide) in paragraph at lines 505--505
+ []\T1/pcr/m/n/10 selEIDfromSelCpG(selCpG.v, allCpG.v, pvth = 0.3/length(selCpG
+.v), array = c("450k","850k"))[] 
+[11]
+Overfull \hbox (101.58032pt too wide) in paragraph at lines 550--550
+ []\T1/pcr/m/n/9 # sigEID.ls <- selEIDfromSelCpG(selCpG.v = sampleCpG.v, allCpG
+.v = allCpG.v, array = "450k")[] 
+[12] (./Rd2.aux) )
+(see the transcript file for additional information){/usr/share/texlive/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/urw/
+courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
+8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (12 pages, 97162 bytes).
+Transcript written on Rd2.log.
+Saving output to ‘ebGSEA-manual.pdf’ ...
+Done
+You may want to clean up by 'rm -Rf /tmp/Rtmp5APclW/Rd2pdf532926eb779e'

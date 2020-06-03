@@ -1,0 +1,557 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `ebGSEA'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Empirical Bayes Gene Set Enrichment Analysis}
+\item[Version]\AsIs{0.1.0}
+\item[Date]\AsIs{2020-6-3}
+\item[Author]\AsIs{Andrew E. Teschendorff, Tianyu Zhu}
+\item[Maintainer]\AsIs{Andrew E. Teschendorff }\email{andrew@picb.ac.cn}\AsIs{, Tianyu Zhu }\email{zhutianyu@picb.ac.cn}\AsIs{}
+\item[Description]\AsIs{Gene Set Enrichment Analysis is one of the most common tasks in the analysis of omic data, and is critical for biological interpretation. In the context of Epigenome Wide Association Studies, which typically rank individual cytosines according to the level of differential methylation, enrichment analysis of biological pathways is challenging due to differences in CpG/probe density between genes. ebGSEA implements an empirical Bayes Gene Set Enrichment Analysis algorithm, which does not rank CpGs but genes according to the overall level of differential methylation of its CpGs/probes, allowing unbiased and sensitive detection of enriched pathways. ebGSEA is a GSEA tool for EWAS that use Illumina HM450k and EPIC beadarrays.}
+\item[License]\AsIs{GPL-2}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[RoxygenNote]\AsIs{7.1.0}
+\item[Depends]\AsIs{R (>= 3.6)}
+\item[Imports]\AsIs{globaltest, kpmt, parallel, org.Hs.eg.db, AnnotationDbi, stats}
+\item[VignetteBuilder]\AsIs{knitr}
+\item[Suggests]\AsIs{roxygen2, BiocStyle, knitr, rmarkdown}
+\item[NeedsCompilation]\AsIs{no}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{ebGSEA-package}{Empirical Bayes Gene Set Enrichment Analysis}{ebGSEA.Rdash.package}
+%
+\begin{Description}\relax
+\pkg{ebGSEA} (Empirical Bayes Gene Set Enrichment Analysis) implements a GSEA designed for
+Illumina Infinium Methylation beadchips, based on an empirical Bayes method to rank genes
+based on their level of differential methylation, subsequently assessing enrichment of biological
+terms using this ranked list.
+\end{Description}
+%
+\begin{Details}\relax
+\pkg{ebGSEA} leverages the evidence of differential methylation from all CpGs/probes
+mapping to a given gene, to rank genes according to their overall level of differential
+methylation. A key property of ebGSEA is that it does not favour genes
+with high or low CpG/probe representation, thus avoiding bias, whilst also
+rendering the method sensitive enough to detect true biological enrichment. With genes
+ranked by this empirical Bayes regression model, GSEA can subsequently be performed
+using a non parametric Wilcoxon rank sum test or the known population median test
+(KPMT), thus allowing GSEA to be performed in a threshold independent manner.
+\end{Details}
+%
+\begin{Author}\relax
+Andrew E Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+### see example in tutorial
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{convertIDs}{Convert between different gene IDs}{convertIDs}
+%
+\begin{Description}\relax
+Convert gene IDs based on `select` function in AnnotationDbi package
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+convertIDs(ids, from, to, db, ifMultiple=c("putNA", "useFirst"))
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{ids}] A vector of the gene IDs to convert from.
+
+\item[\code{from}] The name of the gene identifier to convert from. All possible keys are returned by using the `keys` method.
+
+\item[\code{to}] The name of the gene identifier to convert to. All possible keys are returned by using the `keys` method.
+
+\item[\code{db}] The AnnotationDb object with the annoation of gene IDs to convert from and to.
+
+\item[\code{ifMultiple}] If there are multiple hits for an input gene ID, whether to return 'NA' (ifMultiple = "putNA") or the first hit (ifMultiple = "useFirst").
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A vector of converted gene IDs.
+\end{Value}
+%
+\begin{Author}\relax
+Andrew E. Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#data("sgtm")
+#rankEID.v <- rownames(sgt.m)
+#sym.v <- convertIDs(rankEID.v, 'ENTREZID', 'SYMBOL', org.Hs.eg.db, ifMultiple="useFirst")
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{doGSEAft}{GSEA with Fisher's Exact Test}{doGSEAft}
+%
+\begin{Description}\relax
+Perform GSEA with Fisher's Exact Test to a group of selected genes
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+doGSEAft(selEID.v, ptw.ls, allEID.v, ncores = 4, minN = 5, adjPVth = 0.05)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{selEID.v}] A vector of selected Entrez Gene ID.
+
+\item[\code{ptw.ls}] Lists of Gene EntrezID in each pathway of interest. You can get the 8567 biological terms from Molecular Signatures Database by `data("MSigDB-28Feb14-data")`.
+
+\item[\code{allEID.v}] A vector of the universal set of Entrez Gene ID which you select genes from.
+
+\item[\code{ncores}] Number of cores used for parallel running. (default = 4)
+
+\item[\code{minN}] For each pathway, the minium number of genes(i.e. available in the ranked gene list) to conduct GSEA. If less than this value, the p value of this pathway would be set 1. (default = 5)
+
+\item[\code{adjPVth}] Adjusted p value threshold to infer a pathway to be significantly enriched or not. P value was derived from Wilcoxon rank sum test and adjusted with BH method. (default = 0.05)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+GSEA with Fisher's Exact Test is an extended enrichement test for user specified genes that doesn't require for ranks.
+\end{Details}
+%
+\begin{Value}
+\begin{ldescription}
+\item[\code{Rank(P)}] A matrix showing enriched pathways ranked by adjusted Fisher's Exact Test p values.
+"nREP" is the number of genes in the pathway,
+"nOVL" is the number of selected genes in the pathway,
+"OR" is the odds ratio of Fisher's Exact Test,
+"P" is the p value of Fisher's Exact Test,
+"adjP" is the adjusted p value of Fisher's Exact Test (method='BH'),
+"Genes" is all the selected genes in the pathway.
+
+\item[\code{Rank(OR)}] A matrix showing enriched pathways ranked by odds ratio. The columns are samely defined as in Rank(P).
+\end{ldescription}
+\end{Value}
+%
+\begin{Author}\relax
+Andrew E. Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# topGSEAft.lm <- doGSEAft(selEID.v = sigEID.ls$selEID, ptw.ls = listEZ.lv, allEID.v = names(mapEIDto450k.lv), ncores = 1, adjPVth = 0.05)
+
+# Details can be found in tutorial
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{doGSEAwt}{GSEA with Wilcoxon Rank Sum Test and the Known-Population Median Test}{doGSEAwt}
+%
+\begin{Description}\relax
+Perform GSEA with wilcoxon rank sum test and known-population test using the ranked gene list from global test.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+doGSEAwt(rankEID.m, ptw.ls, ncores = 4, minN = 5, adjPVth = 0.05)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{rankEID.m}] The resulted matrix from doGT function, with genes by row and ranked by statistics from global test. Rownames of the matrix should be gene EntrezID.
+
+\item[\code{ptw.ls}] Lists of Gene EntrezID in each pathway of interest. You can get the 8567 biological terms from Molecular Signatures Database by `data("MSigDB-28Feb14-data")`.
+
+\item[\code{ncores}] Number of cores used for parallel running. (default = 4)
+
+\item[\code{minN}] For each pathway, the minium number of genes(i.e. available in the ranked gene list) to conduct GSEA. If less than this value, the p value of this pathway would be set 1. (default = 5)
+
+\item[\code{adjPVth}] Adjusted p value threshold to infer a pathway to be significantly enriched or not. P value was derived from Wilcoxon rank sum test and adjusted with BH method. (default = 0.05)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+GSEA with Wilcoxon Rank Sum Test and the Known-Population Median Test is the second step of ebGSEA algorithm. Once the ranks of genes were derived from \emph{doGT}, enrichment of biological terms can be performed using either a standard one-tailed Wilcoxon rank sum test (WT), or a recently introduced more powerful version called Known-Population Median Test (KPMT). A group of enriched pathways can then be defined over adjusted pvalue from Wilcoxon rank sum test.
+\end{Details}
+%
+\begin{Value}
+\begin{ldescription}
+\item[\code{Rank(P)}] A matrix showing enriched pathways ranked by adjusted Wilcox test p values.
+"nREP" is the number of mapped genes in the pathway,
+"AUC" is the Area under curve of wilcox test,
+"P(WT)" is the p-value of wilcox test,
+"P(KPMT)" is the p-value of the Known-Population Median Test,
+"adjP" is the adjusted p-value of wilcox test.
+
+\item[\code{Rank(AUC)}] A matrix showing enriched pathways ranked by AUC. The columns are defined samely as Rank(P).
+
+\item[\code{Genestat}] Lists of gene symbols in each enriched pathway. Each object contains the statistic and p-value from global test of each gene.
+\end{ldescription}
+\end{Value}
+%
+\begin{Author}\relax
+Andrew E. Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# data("MSigDB-28Feb14-data")
+# data("sgtm")
+# topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv, ncores = 10, minN = 5, adjPVth = 0.05)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{doGT}{Empirical Bayes Global Test}{doGT}
+%
+\begin{Description}\relax
+Function to assess the overall level of differential methylation using all the probes mapping to a gene.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+doGT(pheno.v, data.m, model = c("linear"), array = c("450k", "850k"), ncores = 4)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{pheno.v}] A vector of phenotype information, must be matched to columns of the input beta matrix.
+
+\item[\code{data.m}] A matrix of beta values with probes by row and samples by column. Missing values shoud be excluded.
+
+\item[\code{model}] The regression model for global test. Default is "linear".
+
+\item[\code{array}] Array type for the input data. "450k" for Illumina HumanMethylation450 data and "850k" for Illumina MethylationEPIC data.
+
+\item[\code{ncores}] Number of cores used for parallel running. (default = 4)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Global test is the first step of ebGSEA algorithm. ebGSEA ranks genes according to their overall level of differential methylation by adapting the global test from \emph{Geoman et al(2006)}, which can be interpreted as an empirical Bayes generalized regression model. The global test evaluates whether DNA methylation patterns of CpGs mapping to a given gene \emph{g} differ significantly between two phenotypes.
+\end{Details}
+%
+\begin{Value}
+A matrix with genes in row ranked by statistic from global test.
+\end{Value}
+%
+\begin{Author}\relax
+Andrew E. Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# sgt.m <- doGT(pheno.v, data.m, array = c("450k"), ncores = 10)
+# topGSEA.lm <- doGSEAwt(rankEID.m = sgt.m, ptw.ls = listEZ.lv, ncores = 10, minN = 5, adjPVth = 0.05)
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{dualmap450kEID}{Illumina HM450k probes annotation to Entrez Gene ID}{dualmap450kEID}
+\keyword{annotation}{dualmap450kEID}
+%
+\begin{Description}\relax
+This annotation file is derived from Illumina HM450k annotation
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data("dualmap450kEID")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list with 485577 items and a list with 18649 items
+\end{Format}
+%
+\begin{Details}\relax
+\begin{itemize}
+
+\item{} map450ktoEID.lv : A list mapping 450k probes to Entrez Gene ID
+\item{} mapEIDto450k.lv : A list mapping Entrez Gene ID to 450k probes
+
+\end{itemize}
+
+\end{Details}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{dualmap850kEID}{Illumina EPIC probes annotation to Entrez Gene ID}{dualmap850kEID}
+\keyword{annotation}{dualmap850kEID}
+%
+\begin{Description}\relax
+This annotation file is derived from Illumina annotation file
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data("dualmap850kEID")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A list with 867531 items and a list with 24357 items
+\end{Format}
+%
+\begin{Details}\relax
+\begin{itemize}
+
+\item{} map850ktoEID.lv : A list mapping 850k probes to Entrez Gene ID
+\item{} mapEIDto850k.lv : A list mapping Entrez Gene ID to 850k probes
+
+\end{itemize}
+
+\end{Details}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{ebgseaDATA}{Sample DNAm data from a buccal swab study}{ebgseaDATA}
+\keyword{tutorial}{ebgseaDATA}
+%
+\begin{Description}\relax
+A DNAm data matrix over 7933 CpGs and 325 samples, and a corresponding
+vector with 325 entries.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data("ebgseaDATA")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+Two objects: a matrix containing the DNAm data and a matched phenotype
+vector containing the smoking-pack-year information
+\end{Format}
+%
+\begin{Details}\relax
+\begin{itemize}
+
+\item{} dataSMK.m : The DNAm data matrix defined over 7933 CpGs and 325 samples.
+\item{} phenoSMK.v : The vector containing the smoking information.
+
+\end{itemize}
+
+\end{Details}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{MSigDB-28Feb14-data}{Biological terms from Molecular Signatures Database 28Feb14}{MSigDB.Rdash.28Feb14.Rdash.data}
+\keyword{biological}{MSigDB-28Feb14-data}
+\keyword{terms}{MSigDB-28Feb14-data}
+%
+\begin{Description}\relax
+The 8567 biological terms from \Rhref{https://www.gsea-msigdb.org/gsea/msigdb/}{Molecular Signatures Database} 28Feb14
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data("MSigDB-28Feb14-data")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+Two lists with 8567 items and a vector with 8567 items
+\end{Format}
+%
+\begin{Details}\relax
+\begin{itemize}
+
+\item{} listEZ.lv : Gene sets in NCBI (Entrez) Gene IDs for each biological term
+\item{} listG.lv : Gene stes in gene symbols for each biological term
+\item{} listclassALL.lv : The type of biological term defined by MSiDB
+
+\end{itemize}
+
+\end{Details}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+
+Subramanian A, Tamayo P, Mootha VK, et al.
+\emph{Gene set enrichment analysis: A knowledge-based approach for interpreting genome-wide expression profiles.}
+Proc Natl Acad Sci U S A (2005) 102(43):15545‐15550.
+doi:\Rhref{https://doi.org/10.1073/pnas.0506580102}{
+10.1073/pnas.0506580102}.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{SampleCpG}{Sample CpGs for fisher's exact test in Tutorial}{SampleCpG}
+\keyword{tutorial}{SampleCpG}
+%
+\begin{Description}\relax
+The differentialy methylated cytosines associated with smoking pack-years identified from buccal swab dataset
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data("SampleCpG")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Format}
+A vector with length 40626 and a vector with length 484272
+\end{Format}
+%
+\begin{Details}\relax
+\begin{itemize}
+
+\item{} sampleCpG.v : The pre-selected differentially methylated cytosines
+\item{} allCpG.v : All the CpGs from buccal swab dataset
+
+\end{itemize}
+
+\end{Details}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+\inputencoding{utf8}
+\HeaderA{selEIDfromSelCpG}{Select significant genes from a selected set of CpGs}{selEIDfromSelCpG}
+%
+\begin{Description}\relax
+Select significant genes from a selected set of CpGs with binomial test.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+selEIDfromSelCpG(selCpG.v, allCpG.v, pvth = 0.3/length(selCpG.v), array = c("450k","850k"))
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{selCpG.v}] A vector of user selected CpGs.
+
+\item[\code{allCpG.v}] A vector of all CpGs the user select the CpGs from.
+
+\item[\code{pvth}] P-value threshold to infer the number of selected CpGs mapped to a gene is significant or not in a binomial test. (default = 0.3/length(selCpG.v))
+
+\item[\code{array}] Array type for the input CpGs. "450k" for Illumina HumanMethylation450 data and "850k" for Illumina MethylationEPIC data.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+This function maps user specified CpGs to genes and return genes whose number of mapped CpGs is significant in binomial test.
+\end{Details}
+%
+\begin{Value}
+\begin{ldescription}
+\item[\code{selEID}] A vector of significant genes in Entrez Gene ID.
+
+\item[\code{selPV}] P-values of significant genes.
+
+\item[\code{allPV}] P-values of all mapped genes.
+\end{ldescription}
+\end{Value}
+%
+\begin{Author}\relax
+Andrew E. Teschendorff, Tianyu Zhu
+\end{Author}
+%
+\begin{References}\relax
+Dong D, Tian Y, Zheng SC, Teschendorff AE.
+\emph{ebGSEA: an improved Gene Set Enrichment Analysis method for Epigenome-Wide-Association Studies.}
+BMC Bioinformatics (2019) 35(18):3514-3516.
+doi:\Rhref{https://doi.org/10.1093/bioinformatics/btz073}{
+10.1093/bioinformatics/btz073}.
+\end{References}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# data("SampleCpG")
+# sigEID.ls <- selEIDfromSelCpG(selCpG.v = sampleCpG.v, allCpG.v = allCpG.v, array = "450k")
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

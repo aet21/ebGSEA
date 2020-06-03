@@ -1,0 +1,16 @@
+MSigDB-28Feb14-data     Biological terms from Molecular Signatures
+                        Database 28Feb14
+SampleCpG               Sample CpGs for fisher's exact test in Tutorial
+convertIDs              Convert between different gene IDs
+doGSEAft                GSEA with Fisher's Exact Test
+doGSEAwt                GSEA with Wilcoxon Rank Sum Test and the
+                        Known-Population Median Test
+doGT                    Empirical Bayes Global Test
+dualmap450kEID          Illumina HM450k probes annotation to Entrez
+                        Gene ID
+dualmap850kEID          Illumina EPIC probes annotation to Entrez Gene
+                        ID
+ebGSEA-package          Empirical Bayes Gene Set Enrichment Analysis
+ebgseaDATA              Sample DNAm data from a buccal swab study
+selEIDfromSelCpG        Select significant genes from a selected set of
+                        CpGs

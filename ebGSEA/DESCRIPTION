@@ -1,0 +1,18 @@
+Package: ebGSEA
+Type: Package
+Title: Empirical Bayes Gene Set Enrichment Analysis
+Version: 0.1.0
+Date: 2020-6-3
+Author: Andrew E. Teschendorff, Tianyu Zhu
+Maintainer: Andrew E. Teschendorff <andrew@picb.ac.cn>, Tianyu Zhu <zhutianyu@picb.ac.cn>
+Description: Gene Set Enrichment Analysis is one of the most common tasks in the analysis of omic data, and is critical for biological interpretation. In the context of Epigenome Wide Association Studies, which typically rank individual cytosines according to the level of differential methylation, enrichment analysis of biological pathways is challenging due to differences in CpG/probe density between genes. ebGSEA implements an empirical Bayes Gene Set Enrichment Analysis algorithm, which does not rank CpGs but genes according to the overall level of differential methylation of its CpGs/probes, allowing unbiased and sensitive detection of enriched pathways. ebGSEA is a GSEA tool for EWAS that use Illumina HM450k and EPIC beadarrays.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Depends: R (>= 3.6)
+Imports: globaltest, kpmt, parallel, org.Hs.eg.db, AnnotationDbi, stats
+VignetteBuilder: knitr
+Suggests: roxygen2, BiocStyle, knitr, rmarkdown
+NeedsCompilation: no
+
